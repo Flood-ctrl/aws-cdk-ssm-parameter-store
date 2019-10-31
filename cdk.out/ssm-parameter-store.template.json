@@ -1,0 +1,26 @@
+{
+  "Resources": {
+    "SharedSubnet1D698FDDE": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": "subnet-0b0d12a344cd55cce",
+        "Name": "shared_subnet_1_id"
+      },
+      "Metadata": {
+        "aws:cdk:path": "ssm-parameter-store/SharedSubnet1/Resource"
+      }
+    },
+    "UbuntuAmiId95BE98B2": {
+      "Type": "AWS::SSM::Parameter",
+      "Properties": {
+        "Type": "String",
+        "Value": "ami-01d9d5f6cecc31f85",
+        "Name": "ubuntu_16.04_ami_id"
+      },
+      "Metadata": {
+        "aws:cdk:path": "ssm-parameter-store/UbuntuAmiId/Resource"
+      }
+    }
+  }
+}
