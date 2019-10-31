@@ -12,6 +12,7 @@ AwsCdkSsmParameterStoreStack(app, "ssm-parameter-store",
                                    'region': 'us-east-1'
                              },
                              shared_subnet_1='subnet-0b0d12a344cd55cce',
+                             shared_subnet_2='subnet-0b0d12a344cd55cce',
                              centos_ami_id='ami-0b898040803850657',
                              ubuntu_ami_id='ami-01d9d5f6cecc31f85',
 
