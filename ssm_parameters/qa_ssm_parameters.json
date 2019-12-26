@@ -1,0 +1,6 @@
+{
+    "lifecycle": "qa",
+    "/three/value": "3",
+    "/four/value": "4",
+    "/uncountable/value": "!!!"
+}
