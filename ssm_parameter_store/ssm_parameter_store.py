@@ -11,25 +11,15 @@ class SsmParameterStoreStack(core.Stack):
                  **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        # for parameter_name,string_value in ssm_parameters.items():
-
-        #     ssm_parameter_store = _ssm.StringParameter(
-        #         self, f'{parameter_name}',
-        #         string_value=string_value,
-        #         parameter_name=parameter_name,
-        #     )
-
-        
         with open("ssm_parameters.json", 'rb') as f:
             ssm_parameters = json.load(f)
-        
+
         for key, value in ssm_parameters.items():
-            if 'lifecycle' in ssm_parameters:
+            if 'lifecycle' in ssm_parameters and key != 'lifecycle':
                 key = '/' + ssm_parameters['lifecycle'] + key
 
             _ssm.StringParameter(
-                self, 'SsmParameters',
+                self, f'{key}',
                 string_value=value,
                 parameter_name=key
-
             )
