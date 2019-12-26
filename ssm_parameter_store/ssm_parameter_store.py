@@ -15,18 +15,19 @@ class SsmParameterStoreStack(core.Stack):
         super().__init__(scope, id, **kwargs)
 
         for filename in os.listdir(ssm_parameters_dir):
-            with open(os.path.join(ssm_parameters_dir, filename), 'rb') as f:
-                ssm_parameters = json.load(f)
+            if filename.endswith('.json'):
+                with open(os.path.join(ssm_parameters_dir, filename), 'rb') as f:
+                    ssm_parameters = json.load(f)
 
-            for key, value in ssm_parameters.items():
-                if 'lifecycle' in ssm_parameters and key != 'lifecycle':
-                    key = '/' + ssm_parameters['lifecycle'] + key
+                for key, value in ssm_parameters.items():
+                    if 'lifecycle' in ssm_parameters and key != 'lifecycle':
+                        key = '/' + ssm_parameters['lifecycle'] + key
 
-                if key == 'lifecycle':
-                    continue
+                    if key == 'lifecycle':
+                        continue
 
-                _ssm.StringParameter(
-                    self, f'{key}',
-                    string_value=value,
-                    parameter_name=key
-                )
+                    _ssm.StringParameter(
+                        self, f'{key}',
+                        string_value=value,
+                        parameter_name=key
+                    )
