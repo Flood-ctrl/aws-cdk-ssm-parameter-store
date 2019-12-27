@@ -1,3 +1,4 @@
+import os
 import json
 from aws_cdk import (
     core,
@@ -8,18 +9,26 @@ from aws_cdk import (
 class SsmParameterStoreStack(core.Stack):
 
     def __init__(self, scope: core.Stack, id: str,
-                 **kwargs) -> None:
+                 ssm_parameters_file: str = 'ssm_parameters.json',
+                 ssm_parameters_dir: str = 'ssm_parameters',
+                 lifecycle: str = 'lifecycle',
+                 ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        with open("ssm_parameters.json", 'rb') as f:
-            ssm_parameters = json.load(f)
+        for filename in os.listdir(ssm_parameters_dir):
+            if filename.endswith('.json'):
+                with open(os.path.join(ssm_parameters_dir, filename), 'rb') as f:
+                    ssm_parameters = json.load(f)
 
-        for key, value in ssm_parameters.items():
-            if 'lifecycle' in ssm_parameters and key != 'lifecycle':
-                key = '/' + ssm_parameters['lifecycle'] + key
+                for key, value in ssm_parameters.items():
+                    if lifecycle in ssm_parameters and key != lifecycle:
+                        key = '/' + ssm_parameters[lifecycle] + key
 
-            _ssm.StringParameter(
-                self, f'{key}',
-                string_value=value,
-                parameter_name=key
-            )
+                    if key == lifecycle:
+                        continue
+
+                    _ssm.StringParameter(
+                        self, f'{key}',
+                        string_value=value,
+                        parameter_name=key
+                    )

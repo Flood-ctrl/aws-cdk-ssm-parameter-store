@@ -1,0 +1,5 @@
+{
+    "lifecycle": "dev1",
+    "/five/value": "5",
+    "/six/value": "6"
+}
