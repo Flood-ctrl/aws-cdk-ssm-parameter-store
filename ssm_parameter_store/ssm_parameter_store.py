@@ -14,6 +14,12 @@ class SsmParameterStoreStack(core.Stack):
                  lifecycle: str = 'lifecycle',
                  ** kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+        """Adds arameters to SSM parameter store from json files.
+
+        :param ssm_parameters_file: Json file with parameters. (Depricated)
+        :param ssm_parameters_dir: Directory with json files contain parameters.
+        :param lifecycle: Prefix for adding to key. Not adding if lifecycle key and value are abesnt in the json file.
+        """
 
         for filename in os.listdir(ssm_parameters_dir):
             if filename.endswith('.json'):
