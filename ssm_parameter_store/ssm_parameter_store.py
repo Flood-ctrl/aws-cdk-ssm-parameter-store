@@ -18,7 +18,11 @@ class SsmParameterStoreStack(core.Stack):
 
         :param ssm_parameters_file: Json file with parameters. (Depricated)
         :param ssm_parameters_dir: Directory with json files contain parameters.
-        :param lifecycle: Prefix for adding to key. Not adding if lifecycle key and value are abesnt in the json file.
+        :param lifecycle: The name (value) of the prefix for adding to key. 
+                          It will not be added if ${lifecycle} key and value are abesnt in the json file.
+                          For instance if lifecycle = 'lifecycle', then for adding prefix to key,
+                          in the json file it has be "lifecycle": "dev1".
+                          Elif lifecycle = 'environment', then in the json file it has be "environment": "dev1".
         """
 
         for filename in os.listdir(ssm_parameters_dir):
